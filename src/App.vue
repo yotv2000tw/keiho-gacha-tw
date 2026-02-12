@@ -65,6 +65,14 @@ const multiGachaText = multiGachaTexts[
         >（とCodex CLI）
       </p>
       <p>
+        ソースコード：<a
+          href="https://github.com/sevenc-nanashi/keiho-gacha"
+          target="_blank"
+          rel="noopener noreferrer"
+          >sevenc-nanashi/keiho-gacha</a
+        >（とCodex CLI）
+      </p>
+      <p>
         元ネタ：<a
           href="https://twitter.com/windymelt/status/2021908111066632317"
           target="_blank"
@@ -113,7 +121,8 @@ const multiGachaText = multiGachaTexts[
           <p class="history-meta">第{{ log.id }}回（{{ log.count }}連）</p>
           <ul class="history-results">
             <li v-for="result in log.results" :key="result.id">
-              {{ result.roll }}連目: {{ result.article.title }} {{ result.article.caption ? "- " + result.article.caption : "" }}
+              {{ result.roll }}連目: {{ result.article.title }}
+              {{ result.article.caption ? "- " + result.article.caption : "" }}
             </li>
           </ul>
         </li>
