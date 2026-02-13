@@ -41,6 +41,27 @@ body {
   margin-top: 20px;
 }
 
+/* Make source-selector visually consistent with law-selector */
+.source-selector {
+  margin-top: 20px;
+}
+.source-selector label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #c4cad6;
+  border-radius: 10px;
+  background: #ffffffcc;
+}
+.source-selector select {
+  border: none;
+  background: transparent;
+  font-weight: 700;
+  color: #0f3f8f;
+  padding: 4px 6px;
+}
+
 .switch {
   display: inline-flex;
   align-items: center;

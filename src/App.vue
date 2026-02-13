@@ -49,6 +49,13 @@ const ui = {
   toolsSuffix: computed(() => (localeIsTW.value ? "（與 Codex CLI）" : "（とCodex CLI）")),
   sourceCodeLabel: computed(() => (localeIsTW.value ? "原始碼：" : "ソースコード：")),
   originalLabel: computed(() => (localeIsTW.value ? "靈感來源：" : "元ネタ：")),
+  // Fork notice / repo info
+  forkNoticeTitle: computed(() =>
+    localeIsTW.value
+      ? "本項目 Fork 自 sevenc-nanashi/keiho-gacha"
+      : "本プロジェクトは sevenc-nanashi/keiho-gacha をフォークしています。",
+  ),
+  forkRepoLabel: computed(() => (localeIsTW.value ? "原始碼：" : "ソースコード：")),
   noteText: computed(() =>
     localeIsTW.value
       ? "※這是個娛樂用的小程式，與實際修法並無任何關聯。"
@@ -366,39 +373,41 @@ watch(
     <header class="hero">
       <h1>{{ ui.headerTitle.value }}</h1>
       <p>{{ ui.subText.value }}</p>
-      <p>
-        {{ ui.authorLabel.value }}<a
-          href="https://sevenc7c.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Nanashi.</a>{{ ui.toolsSuffix.value }}
-      </p>
-      <p>
-        {{ ui.sourceCodeLabel.value }}<a
-          href="https://github.com/sevenc-nanashi/keiho-gacha"
-          target="_blank"
-          rel="noopener noreferrer"
-          >sevenc-nanashi/keiho-gacha</a>
-      </p>
-      <p>
-        {{ ui.originalLabel.value }}<a
-          href="https://twitter.com/windymelt/status/2021908111066632317"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Windymelt</a>
-      </p>
-      <p class="note">
-        {{ ui.noteText.value }}
-      </p>
+      <div class="original-info" aria-label="original-info">
+        <p>
+          <strong>{{ ui.authorLabel.value }}</strong>
+          Nanashi.<span class="tools-suffix">{{ ui.toolsSuffix.value }}</span>
+        </p>
+        <p>
+          <strong>{{ ui.sourceCodeLabel.value }}</strong>
+          <a href="https://github.com/sevenc-nanashi/keiho-gacha" target="_blank" rel="noopener noreferrer">sevenc-nanashi/keiho-gacha</a>
+        </p>
+        <p>
+          <strong>{{ ui.originalLabel.value }}</strong>
+          <a href="https://twitter.com/windymelt/status/2021908111066632317" target="_blank" rel="noopener noreferrer">Windymelt</a>
+        </p>
+        <p class="note">{{ ui.noteText.value }}</p>
+      </div>
+
+      <div class="fork-info" aria-label="fork-notice">
+        <p>
+          <strong>{{ ui.forkNoticeTitle.value }}</strong>
+        </p>
+        <p>
+          <strong>{{ ui.forkRepoLabel.value }}</strong>
+          <a href="https://github.com/yotv2000tw/keiho-gacha-tw" target="_blank" rel="noopener noreferrer">yotv2000tw/keiho-gacha-tw</a>
+        </p>
+      </div>
+      
     </header>
         <section class="source-selector" :aria-label="ui.selectorLabel.value">
           <label>
-            {{ ui.selectorLabel.value }}：
-            <select v-model="dataSource">
-              <option value="jp">{{ ui.sourceOptionLabel('jp') }}</option>
-              <option value="tw">{{ ui.sourceOptionLabel('tw') }}</option>
-            </select>
-          </label>
+              <strong>{{ ui.selectorLabel.value }}</strong><span v-if="!localeIsTW">：</span>
+              <select v-model="dataSource">
+                <option value="jp">{{ ui.sourceOptionLabel('jp') }}</option>
+                <option value="tw">{{ ui.sourceOptionLabel('tw') }}</option>
+              </select>
+            </label>
         </section>
 
     <section class="law-selector" :aria-label="ui.switchLabel.value">
@@ -545,5 +554,31 @@ watch(
   background: #ff9800;
   border-radius: 6px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+}
+.fork-info {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  background: #f7f7f8;
+  border-left: 4px solid #ff9800;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
+}
+.fork-info p {
+  margin: 0.25rem 0;
+}
+.fork-info a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+.fork-info .note-small {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+.tools-suffix {
+  margin-left: 0.4rem;
+  color: #444;
+  font-weight: 500;
 }
 </style>
