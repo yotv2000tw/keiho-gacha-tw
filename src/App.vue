@@ -116,13 +116,14 @@ const twitterLink = computed(() => {
       }
     }
     if (parts.length > 0) {
-      text = `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止 ${parts.join("，以及 ")}`;
+      text = `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除 ${parts.join("，以及 ")}`;
     } else {
-      text = `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止`;
+      text = `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除`;
     }
   } else if (localeIsTW.value) {
     const sorted = sortResultsByOrder(results.value);
-    text = `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止 ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}`;
+    const docTag = `#中華民國${target}`;
+    text = `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除 ${docTag} ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}`;
   } else {
     const jpPrefix = dataSource.value === 'tw' ? '台湾の' : '日本国の';
     const sorted = sortResultsByOrder(results.value);
@@ -163,14 +164,15 @@ const clipboardText = computed(() => {
       }
     }
     if (parts.length > 0) {
-      return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止 ${parts.join("，以及 ")}。`;
+      return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除 ${parts.join("，以及 ")}。`;
     }
-    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止。`;
+    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除。`;
   }
 
   if (localeIsTW.value) {
     const sorted = sortResultsByOrder(results.value);
-    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止 ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}。`;
+    const docTag = `#中華民國${target}`;
+    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢除 ${docTag} ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}。`;
   }
 
   const jpPrefix = dataSource.value === 'tw' ? '台湾の' : '日本の';
