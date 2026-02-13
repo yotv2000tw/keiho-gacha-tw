@@ -402,7 +402,7 @@ watch(
     </header>
         <section class="source-selector" :aria-label="ui.selectorLabel.value">
           <label>
-              <strong>{{ ui.selectorLabel.value }}</strong><span v-if="!localeIsTW">：</span>
+              <strong>{{ ui.selectorLabel.value }}</strong>
               <select v-model="dataSource">
                 <option value="jp">{{ ui.sourceOptionLabel('jp') }}</option>
                 <option value="tw">{{ ui.sourceOptionLabel('tw') }}</option>
