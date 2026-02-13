@@ -31,20 +31,21 @@ const twitterLink = computed(() => {
   const target = isKenpoMode.value ? "憲法" : "刑法";
   let text = `#${target}のランダムな条文を廃止する党 は、${target}の__remaining__を廃止することを宣言いたします。`;
   const maxLength = 129;
+  let remaining = results.value.length;
   for (const result of results.value) {
     if (text.length + result.article.title.length + 2 <= maxLength) {
       text = text.replace(
         "__remaining__",
         `${result.article.title}、__remaining__`,
       );
+      remaining -= 1;
     } else {
       text = text.replace("__remaining__", "等");
       break;
     }
   }
-  if (text.includes("__remaining__")) {
-    text = text.replace("__remaining__", "等");
-  }
+  text = text.replace("、__remaining__", "");
+
   const url = encodeURIComponent(location.href);
   return `${baseUrl}?text=${encodeURIComponent(text)}&url=${url}`;
 });
