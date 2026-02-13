@@ -37,7 +37,7 @@ const localeIsTW = computed(() => dataSource.value === "tw");
 const ui = {
   headerTitle: computed(() =>
     localeIsTW.value
-      ? `廢除 ${targetLawLabel.value} 之隨機條文黨`
+      ? `廢除 ${targetLawLabel.value} 隨機條文黨`
       : `${targetLawLabel.value}のランダムな条文を廃止する党`,
   ),
   subText: computed(() =>
@@ -46,6 +46,7 @@ const ui = {
       : `ボタンを押して${targetLawLabel.value}を廃止しよう！`,
   ),
   authorLabel: computed(() => (localeIsTW.value ? "作者：" : "作った人：")),
+  toolsSuffix: computed(() => (localeIsTW.value ? "（與 Codex CLI）" : "（とCodex CLI）")),
   sourceCodeLabel: computed(() => (localeIsTW.value ? "原始碼：" : "ソースコード：")),
   originalLabel: computed(() => (localeIsTW.value ? "靈感來源：" : "元ネタ：")),
   noteText: computed(() =>
@@ -370,24 +371,21 @@ watch(
           href="https://sevenc7c.com"
           target="_blank"
           rel="noopener noreferrer"
-          >Nanashi.</a
-        >（とCodex CLI）
+          >Nanashi.</a>{{ ui.toolsSuffix.value }}
       </p>
       <p>
         {{ ui.sourceCodeLabel.value }}<a
           href="https://github.com/sevenc-nanashi/keiho-gacha"
           target="_blank"
           rel="noopener noreferrer"
-          >sevenc-nanashi/keiho-gacha</a
-        >
+          >sevenc-nanashi/keiho-gacha</a>
       </p>
       <p>
         {{ ui.originalLabel.value }}<a
           href="https://twitter.com/windymelt/status/2021908111066632317"
           target="_blank"
           rel="noopener noreferrer"
-          >Windymelt</a
-        >
+          >Windymelt</a>
       </p>
       <p class="note">
         {{ ui.noteText.value }}
