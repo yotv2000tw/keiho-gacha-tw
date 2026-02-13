@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { penalCodeArticles, type PenalCodeArticle } from "./data/articles";
+import { keihoArticles, type KeihoArticle } from "./data/articles";
 
 type GachaResult = {
   roll: number;
-  article: PenalCodeArticle;
+  article: KeihoArticle;
   id: string;
 };
 
@@ -22,8 +22,8 @@ const draw = (count: number): void => {
   const nextResults: GachaResult[] = [];
 
   for (let i = 0; i < count; i += 1) {
-    const randomIndex = Math.floor(Math.random() * penalCodeArticles.length);
-    const article = penalCodeArticles[randomIndex];
+    const randomIndex = Math.floor(Math.random() * keihoArticles.length);
+    const article = keihoArticles[randomIndex];
 
     if (article === undefined) {
       throw new Error("刑法条文データの取得に失敗しました");

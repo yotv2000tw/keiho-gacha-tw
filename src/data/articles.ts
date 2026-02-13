@@ -1,9 +1,9 @@
-import rawData from "../../extract/data.json";
+import rawData from "../../extract/keiho.json";
 
-export type PenalCodeArticle = {
+export type KeihoArticle = {
   title: string;
   caption: string;
   text: string;
 };
 
-export const penalCodeArticles = rawData as PenalCodeArticle[];
+export const keihoArticles = rawData as KeihoArticle[];
