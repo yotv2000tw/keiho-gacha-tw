@@ -33,11 +33,14 @@ const twitterLink = computed(() => {
   const maxLength = 129;
   let remaining = results.value.length;
   for (const result of results.value) {
-    if (text.length + result.article.title.length + 2 <= maxLength) {
-      text = text.replace(
-        "__remaining__",
-        `${result.article.title}、__remaining__`,
-      );
+    const additionalText = result.article.caption
+      ? `${result.article.title}（${result.article.caption}）、`
+      : `${result.article.title}、`;
+    if (
+      text.length + additionalText.length - "__remaining__".length <=
+      maxLength
+    ) {
+      text = text.replace("__remaining__", `${additionalText}__remaining__`);
       remaining -= 1;
     } else {
       text = text.replace("__remaining__", "等");
