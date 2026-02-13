@@ -10,6 +10,21 @@ def normalize_text(text: str) -> str:
     return " ".join(text.split())
 
 
+def extract_text_without_rt(element: ET.Element) -> str:
+    parts: list[str] = []
+
+    if element.text is not None:
+        parts.append(element.text)
+
+    for child in element:
+        if child.tag != "Rt":
+            parts.append(extract_text_without_rt(child))
+        if child.tail is not None:
+            parts.append(child.tail)
+
+    return "".join(parts)
+
+
 def normalize_caption(text: str) -> str:
     caption = normalize_text(text)
     if caption.startswith("（") and caption.endswith("）") and len(caption) >= 2:
@@ -29,7 +44,7 @@ def extract_articles(xml_path: Path) -> list[dict[str, str]]:
         if title_element is None:
             raise ValueError("ArticleTitle が見つからない Article があります。")
 
-        title = normalize_text("".join(title_element.itertext()))
+        title = normalize_text(extract_text_without_rt(title_element))
         if title == "":
             raise ValueError("空の ArticleTitle を検出しました。")
 
@@ -37,11 +52,11 @@ def extract_articles(xml_path: Path) -> list[dict[str, str]]:
 
         caption_element = article.find("ArticleCaption")
         if caption_element is not None:
-            caption = normalize_caption("".join(caption_element.itertext()))
+            caption = normalize_caption(extract_text_without_rt(caption_element))
 
         sentences = []
         for sentence in article.findall(".//Sentence"):
-            text = normalize_text("".join(sentence.itertext()))
+            text = normalize_text(extract_text_without_rt(sentence))
             if text != "":
                 sentences.append(text)
 
