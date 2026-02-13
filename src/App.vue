@@ -290,6 +290,7 @@ watch(
     border-radius: 4px;
     height: 2.5rem;
     cursor: pointer;
+    font-size: 1rem;
   }
 }
 .twitter-button {
