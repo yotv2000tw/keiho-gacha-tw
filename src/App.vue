@@ -136,7 +136,7 @@ const twitterLink = computed(() => {
 });
 const clipboardText = computed(() => {
   const target = isKenpoMode.value ? "憲法" : "刑法";
-  const sourcePrefix = dataSource.value === 'tw' ? (localeIsTW.value ? '廢除台灣的' : '台湾の') : (localeIsTW.value ? '廢除日本的' : '日本国の');
+  const sourcePrefix = dataSource.value === 'tw' ? (localeIsTW.value ? '台灣' : '台湾の') : (localeIsTW.value ? '日本' : '日本の');
 
   if (localeIsTW.value && isKenpoMode.value) {
     const groups: Record<string, GachaResult[]> = {};
@@ -163,19 +163,19 @@ const clipboardText = computed(() => {
       }
     }
     if (parts.length > 0) {
-      return `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止 ${parts.join("，以及 ")}。`;
+      return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止 ${parts.join("，以及 ")}。`;
     }
-    return `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止。`;
+    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止。`;
   }
 
   if (localeIsTW.value) {
     const sorted = sortResultsByOrder(results.value);
-    return `${sourcePrefix} #${target} 隨機條文黨，在此宣告廢止 ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}。`;
+    return `#廢除${sourcePrefix}${target}隨機條文黨，在此宣告廢止 ${sorted.map((r) => formatArticleForLocale(r.article)).join("、")}。`;
   }
 
-  const jpPrefix = dataSource.value === 'tw' ? '台湾の' : '日本国の';
+  const jpPrefix = dataSource.value === 'tw' ? '台湾の' : '日本の';
   const sorted = sortResultsByOrder(results.value);
-  return `${jpPrefix}#${target}のランダムな条文を廃止する党 は、${target}の${sorted
+  return `${jpPrefix} #${target}のランダムな条文を廃止する党 は、${target}の${sorted
     .map((r) => (r.article.caption ? `${r.article.title}（${r.article.caption}）` : r.article.title))
     .join("、")}を廢止することを宣言いたします。`;
 });
