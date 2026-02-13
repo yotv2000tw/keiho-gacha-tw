@@ -52,6 +52,34 @@ const twitterLink = computed(() => {
   const url = encodeURIComponent(location.href);
   return `${baseUrl}?text=${encodeURIComponent(text)}&url=${url}`;
 });
+const clipboardText = computed(() => {
+  const target = isKenpoMode.value ? "憲法" : "刑法";
+  let text = `#${target}のランダムな条文を廃止する党 は、${target}の${results.value
+    .map((result) =>
+      result.article.caption
+        ? `${result.article.title}（${result.article.caption}）`
+        : result.article.title,
+    )
+    .join("、")}を廃止することを宣言いたします。`;
+  return text;
+});
+const misskeyLink = computed(() => {
+  const baseUrl = "https://misskeyshare.link/share.html";
+  const text = clipboardText.value;
+  return `${baseUrl}?text=${encodeURIComponent(text)}&url=${encodeURIComponent(
+    location.href,
+  )}`;
+});
+const copyToClipboard = (): void => {
+  navigator.clipboard.writeText(clipboardText.value).then(
+    () => {
+      alert("マニフェストの内容をクリップボードにコピーしました！");
+    },
+    () => {
+      alert("クリップボードへのコピーに失敗しました。");
+    },
+  );
+};
 
 const draw = (count: number): void => {
   const nextResults: GachaResult[] = [];
@@ -174,14 +202,26 @@ watch(
       <p v-if="results.length === 0" class="hint">まだ引いていません</p>
       <template v-else>
         <div class="share-results">
+          マニフェストを共有する：
           <a
             :href="twitterLink"
             target="_blank"
             rel="noopener noreferrer"
-            class="button twitter-button"
+            class="twitter-button"
           >
-            結果をTwitterでシェアする
+            Twitter
           </a>
+          <a
+            :href="misskeyLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="misskey-button"
+          >
+            Misskey
+          </a>
+          <button type="button" class="copy-button" @click="copyToClipboard">
+            コピー
+          </button>
         </div>
         <ol>
           <li v-for="result in results" :key="result.id">
@@ -234,9 +274,34 @@ watch(
 
 .share-results {
   margin-bottom: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  a,
+  button {
+    display: block;
+    box-sizing: border-box;
+    text-decoration: none;
+    align-content: center;
+    padding: 0 1rem;
+    border: none;
+    border-radius: 4px;
+    height: 2.5rem;
+    cursor: pointer;
+  }
 }
-.button.twitter-button {
+.twitter-button {
   background-color: #1da1f2;
+  color: #ffffff;
+}
+.misskey-button {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+.copy-button {
+  background-color: #cccc44;
   color: #ffffff;
 }
 </style>
